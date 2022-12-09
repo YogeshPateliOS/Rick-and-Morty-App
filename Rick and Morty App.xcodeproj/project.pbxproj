@@ -20,6 +20,7 @@
 		90A4756629429F7A002DF6AD /* CharactersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A4756529429F7A002DF6AD /* CharactersViewModel.swift */; };
 		90A475682942B43E002DF6AD /* UIImageView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A475672942B43E002DF6AD /* UIImageView + Extension.swift */; };
 		90A4756A2942B470002DF6AD /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A475692942B470002DF6AD /* ImageCache.swift */; };
+		90A4756C2942B5F7002DF6AD /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A4756B2942B5F7002DF6AD /* Constant.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		90A4756529429F7A002DF6AD /* CharactersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersViewModel.swift; sourceTree = "<group>"; };
 		90A475672942B43E002DF6AD /* UIImageView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView + Extension.swift"; sourceTree = "<group>"; };
 		90A475692942B470002DF6AD /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		90A4756B2942B5F7002DF6AD /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 		90A4755329428CCC002DF6AD /* Constant */ = {
 			isa = PBXGroup;
 			children = (
+				90A4756B2942B5F7002DF6AD /* Constant.swift */,
 			);
 			path = Constant;
 			sourceTree = "<group>";
@@ -255,6 +258,7 @@
 				90A4755D29428E62002DF6AD /* Character.swift in Sources */,
 				90A475682942B43E002DF6AD /* UIImageView + Extension.swift in Sources */,
 				90A4753F29428C38002DF6AD /* SceneDelegate.swift in Sources */,
+				90A4756C2942B5F7002DF6AD /* Constant.swift in Sources */,
 				90A4755B29428E52002DF6AD /* CharactersListViewController.swift in Sources */,
 				90A4756329428FF1002DF6AD /* NetworkHandler.swift in Sources */,
 			);

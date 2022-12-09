@@ -48,5 +48,18 @@ final class NetworkHandler{
         }.resume()
     }
     
+//    func get(){
+//        guard let url = URL(string: "https://rickandmortyapi.com/api/character/?page=2") else { return }
+//        
+//        URLSession.shared.dataTask(with: url) { (data, response, error) in
+//            do {
+//                let decodedData = try JSONDecoder().decode(Character.self, from: data!)
+//                print(decodedData)
+//            }catch {
+//                print(error)
+//            }
+//        }.resume()
+//    }
+    
     
 }

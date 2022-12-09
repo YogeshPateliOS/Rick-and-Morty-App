@@ -8,10 +8,8 @@
 import Foundation
 
 final class CharactersViewModel{
-    
-    fileprivate let url = "https://rickandmortyapi.com/api/character"    
-    
-    public func getAllCharacters(completion: @escaping (Character) -> ()){
+        
+    public func getAllCharacters(url: String, completion: @escaping (Character) -> ()){
         NetworkHandler.sharedInstance.getAllCharacters(
             url: url) { (result: Swift.Result<Character, DataError>) in
                 switch result {

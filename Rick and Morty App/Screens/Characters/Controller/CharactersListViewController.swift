@@ -21,10 +21,10 @@ class CharactersListViewController: UIViewController {
     
     fileprivate let charactersViewModel = CharactersViewModel()
     
-    fileprivate var character: Character?
-    
+    fileprivate var info: Info?
+    var characters = [Result]()
     private var datasource: DataSource!
-
+    
     let flowLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 5
@@ -48,9 +48,11 @@ extension CharactersListViewController{
         getAllCharacters()
     }
     
-    func getAllCharacters(){
-        charactersViewModel.getAllCharacters { character in
-            self.createSnapshot(characters: character.results)
+    func getAllCharacters(url: String = characterURL){
+        charactersViewModel.getAllCharacters(url: url) { character in
+            self.info = character.info
+            self.characters.append(contentsOf: character.results)
+            self.createSnapshot(characters: self.characters)
         }
     }
     
@@ -89,6 +91,21 @@ extension CharactersListViewController: UICollectionViewDelegateFlowLayout{
         let availableWidth = width - spacing * (numberOfItemsPerRow + 1)
         let itemDimension = floor(availableWidth / numberOfItemsPerRow)
         return CGSize(width: itemDimension, height: itemDimension)
+    }
+    
+}
+
+extension CharactersListViewController: UICollectionViewDelegate{
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.row == collectionView.numberOfItems(inSection: indexPath.section) - 1 {
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                guard let info = self.info,
+                      !info.next.isEmpty else { return }
+                self.getAllCharacters(url: self.info?.next ?? characterURL)
+            }
+        }
     }
     
 }
