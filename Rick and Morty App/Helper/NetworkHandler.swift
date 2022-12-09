@@ -19,7 +19,7 @@ final class NetworkHandler{
     static let sharedInstance = NetworkHandler()
     typealias Completion<T> = (Swift.Result<T, DataError>) -> Void
 
-    public func getAllCharacters<T: Decodable>(url: String, completion: @escaping Completion<T>){
+    public func get<T: Decodable>(url: String, completion: @escaping Completion<T>){
         guard let url = URL(string: url) else { return }
         
         URLSession.shared.dataTask(with: url) { (data, response, error) in

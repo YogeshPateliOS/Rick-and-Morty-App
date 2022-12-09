@@ -61,6 +61,7 @@ extension CharactersListViewController{
         searchController.searchBar.placeholder = "Search"
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
+        navigationItem.hidesSearchBarWhenScrolling = false
         navigationItem.searchController = searchController
         definesPresentationContext = true
     }
@@ -114,6 +115,14 @@ extension CharactersListViewController: UICollectionViewDelegateFlowLayout{
 }
 
 extension CharactersListViewController: UICollectionViewDelegate{
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "CharacterDetailViewController") as? CharacterDetailViewController else{
+            return
+        }
+        detailVC.character = characters[indexPath.row]
+        self.navigationController?.pushViewController(detailVC, animated: true)
+    }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if indexPath.row == collectionView.numberOfItems(inSection: indexPath.section) - 1 &&             searchController.searchBar.text?.isEmpty == true{

@@ -77,3 +77,14 @@ struct Location: Codable, Hashable {
 
 //struct Result: Codable, Hashable{
 //}
+
+struct EpisodeDetail: Codable{
+    let id: Int
+    let name: String
+    let episode: String
+    let airDate: String
+    private enum CodingKeys : String, CodingKey {
+        case id, name, episode
+        case airDate = "air_date"
+    }
+}

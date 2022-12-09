@@ -22,7 +22,6 @@ class CharacterCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         thumbnailImage.layer.cornerRadius = 12
-        thumbnailImage.layer.cornerRadius = 12
         thumbnailImage.layer.masksToBounds = true
     }
 
