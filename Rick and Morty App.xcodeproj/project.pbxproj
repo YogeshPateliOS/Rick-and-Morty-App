@@ -13,7 +13,7 @@
 		90A4754629428C3A002DF6AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90A4754529428C3A002DF6AD /* Assets.xcassets */; };
 		90A4754929428C3A002DF6AD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90A4754729428C3A002DF6AD /* LaunchScreen.storyboard */; };
 		90A4755B29428E52002DF6AD /* CharactersListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A4755A29428E52002DF6AD /* CharactersListViewController.swift */; };
-		90A4755D29428E62002DF6AD /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A4755C29428E62002DF6AD /* Character.swift */; };
+		90A4755D29428E62002DF6AD /* CharacterResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A4755C29428E62002DF6AD /* CharacterResponseModel.swift */; };
 		90A4756029428E7F002DF6AD /* CharacterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A4755E29428E7F002DF6AD /* CharacterCell.swift */; };
 		90A4756129428E7F002DF6AD /* CharacterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90A4755F29428E7F002DF6AD /* CharacterCell.xib */; };
 		90A4756329428FF1002DF6AD /* NetworkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A4756229428FF1002DF6AD /* NetworkHandler.swift */; };
@@ -33,7 +33,7 @@
 		90A4754829428C3A002DF6AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		90A4754A29428C3A002DF6AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		90A4755A29428E52002DF6AD /* CharactersListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersListViewController.swift; sourceTree = "<group>"; };
-		90A4755C29428E62002DF6AD /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
+		90A4755C29428E62002DF6AD /* CharacterResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterResponseModel.swift; sourceTree = "<group>"; };
 		90A4755E29428E7F002DF6AD /* CharacterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterCell.swift; sourceTree = "<group>"; };
 		90A4755F29428E7F002DF6AD /* CharacterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CharacterCell.xib; sourceTree = "<group>"; };
 		90A4756229428FF1002DF6AD /* NetworkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHandler.swift; sourceTree = "<group>"; };
@@ -74,13 +74,13 @@
 		90A4753B29428C38002DF6AD /* Rick and Morty App */ = {
 			isa = PBXGroup;
 			children = (
+				90A4755129428CC1002DF6AD /* Application */,
 				90A4755329428CCC002DF6AD /* Constant */,
-				90A4755929428D69002DF6AD /* Extensions */,
 				90A4755829428D5F002DF6AD /* Helper */,
 				90A4755229428CC9002DF6AD /* Screens */,
 				90A4755029428CBF002DF6AD /* Storyboard */,
-				90A4755129428CC1002DF6AD /* Delegates */,
-				90A4754529428C3A002DF6AD /* Assets.xcassets */,
+				90A4755929428D69002DF6AD /* Extensions */,
+				90F5FC332943AB1800BB5D8D /* Resources */,
 				90A4754A29428C3A002DF6AD /* Info.plist */,
 			);
 			path = "Rick and Morty App";
@@ -95,13 +95,13 @@
 			path = Storyboard;
 			sourceTree = "<group>";
 		};
-		90A4755129428CC1002DF6AD /* Delegates */ = {
+		90A4755129428CC1002DF6AD /* Application */ = {
 			isa = PBXGroup;
 			children = (
 				90A4753C29428C38002DF6AD /* AppDelegate.swift */,
 				90A4753E29428C38002DF6AD /* SceneDelegate.swift */,
 			);
-			path = Delegates;
+			path = Application;
 			sourceTree = "<group>";
 		};
 		90A4755229428CC9002DF6AD /* Screens */ = {
@@ -152,7 +152,7 @@
 		90A4755729428D0D002DF6AD /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				90A4755C29428E62002DF6AD /* Character.swift */,
+				90A4755C29428E62002DF6AD /* CharacterResponseModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -188,6 +188,14 @@
 				90A475702942CF61002DF6AD /* CharacterDetailViewController.swift */,
 			);
 			path = "Character Detail";
+			sourceTree = "<group>";
+		};
+		90F5FC332943AB1800BB5D8D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				90A4754529428C3A002DF6AD /* Assets.xcassets */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,7 +275,7 @@
 				90A4756629429F7A002DF6AD /* CharactersViewModel.swift in Sources */,
 				90A4753D29428C38002DF6AD /* AppDelegate.swift in Sources */,
 				90A4756A2942B470002DF6AD /* ImageCache.swift in Sources */,
-				90A4755D29428E62002DF6AD /* Character.swift in Sources */,
+				90A4755D29428E62002DF6AD /* CharacterResponseModel.swift in Sources */,
 				90A475682942B43E002DF6AD /* UIImageView + Extension.swift in Sources */,
 				90A4753F29428C38002DF6AD /* SceneDelegate.swift in Sources */,
 				90A4756C2942B5F7002DF6AD /* Constant.swift in Sources */,
@@ -426,6 +434,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -456,6 +465,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

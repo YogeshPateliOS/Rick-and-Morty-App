@@ -13,18 +13,18 @@ class CharacterCell: UICollectionViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var thumbnailImage: UIImageView!
     
-    var character: Result?{
+    var character: Character?{
         didSet{
             thumbnailImage.loadImageAsync(with: character?.image)
             nameLabel.text = character?.name
-            episodeCountLabel.text = "\(character?.episode.count ?? 0)"
+            episodeCountLabel.text = "Episodes: \(character?.episode.count ?? 0)"
         }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        thumbnailImage.layer.cornerRadius = 12
-        thumbnailImage.layer.masksToBounds = true
+        contentView.layer.cornerRadius = 6
+        contentView.layer.masksToBounds = true
     }
 
 }

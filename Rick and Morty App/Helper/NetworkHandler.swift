@@ -14,12 +14,13 @@ enum DataError: Error {
     case decoding
 }
 
+typealias APIResponseBlock<T> = (Result<T, DataError>) -> Void
+
 final class NetworkHandler{
     
-    static let sharedInstance = NetworkHandler()
-    typealias Completion<T> = (Swift.Result<T, DataError>) -> Void
+    static let shared = NetworkHandler()
 
-    public func get<T: Decodable>(url: String, completion: @escaping Completion<T>){
+    public func get<T: Decodable>(url: String, completion: @escaping APIResponseBlock<T>){
         guard let url = URL(string: url) else { return }
         
         URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -47,19 +48,5 @@ final class NetworkHandler{
             }
         }.resume()
     }
-    
-//    func get(){
-//        guard let url = URL(string: "https://rickandmortyapi.com/api/character/?page=2") else { return }
-//        
-//        URLSession.shared.dataTask(with: url) { (data, response, error) in
-//            do {
-//                let decodedData = try JSONDecoder().decode(Character.self, from: data!)
-//                print(decodedData)
-//            }catch {
-//                print(error)
-//            }
-//        }.resume()
-//    }
-    
     
 }

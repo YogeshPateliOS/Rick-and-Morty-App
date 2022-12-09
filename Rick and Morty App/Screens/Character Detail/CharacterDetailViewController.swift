@@ -16,7 +16,9 @@ class CharacterDetailViewController: UITableViewController {
     @IBOutlet weak var thumbnailImageView: UIImageView!
     @IBOutlet weak var statusValueLabel: UILabel!
     var info: Info?
-    var character: Result?
+    var character: Character?
+    var episodesUrl: [String] = []
+    var episodes: [EpisodeDetail] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,11 +65,12 @@ extension CharacterDetailViewController{
                 url: character?.episode[indexPath.row] ?? "") { episode in
                     DispatchQueue.main.async {
                         var content = cell?.defaultContentConfiguration()
-                        content?.text = episode.episode + "-" + episode.name
+                        content?.text = episode.episode + " - " + episode.name
                         content?.secondaryText = episode.airDate
                         cell?.contentConfiguration = content
                     }
                 }
+            cell?.selectionStyle = .none
             return cell!
         }
         return super.tableView(tableView, cellForRowAt: indexPath)
@@ -91,5 +94,19 @@ extension CharacterDetailViewController{
         return super.tableView(tableView, heightForRowAt: indexPath)
     }
     
+    
+}
+
+extension CharacterDetailViewController {
+    
+    func loadMoreEpisodes() {
+        guard !episodesUrl.isEmpty,
+                episodesUrl.count > episodes.count else {
+            return
+        }
+        let endIndex = min(episodes.count + 10, episodesUrl.count - episodes.count)
+        let urlsToLoad = episodesUrl[episodes.count..<endIndex]
+        
+    }
     
 }

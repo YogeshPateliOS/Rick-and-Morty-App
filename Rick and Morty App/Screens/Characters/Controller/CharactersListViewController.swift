@@ -11,38 +11,40 @@ enum Section {
     case main
 }
 
-typealias DataSource = UICollectionViewDiffableDataSource<Section, Result>
-typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Result>
+typealias DataSource = UICollectionViewDiffableDataSource<Section, Character>
+typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Character>
 
 
 class CharactersListViewController: UIViewController {
 
     @IBOutlet weak var characterCollectionView: UICollectionView!
     
-    fileprivate let charactersViewModel = CharactersViewModel()
+    private lazy var viewModel = CharactersViewModel()
     
-    fileprivate var info: Info?
-    var characters = [Result](){
-        didSet{
-            self.createSnapshot(characters: self.characters)
-        }
-    }
     private var datasource: DataSource!
-    private var previousRun = Date()
-    private let minInterval = 0.05
+    
     fileprivate let searchController = UISearchController(searchResultsController: nil)
 
-    let flowLayout: UICollectionViewFlowLayout = {
-        let layout = UICollectionViewFlowLayout()
-        layout.minimumInteritemSpacing = 5
-        layout.minimumLineSpacing = 5
-        layout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-        return layout
+    let createLayout: UICollectionViewCompositionalLayout = {
+        let item = NSCollectionLayoutItem(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1),
+                heightDimension: .fractionalHeight(1))
+        )
+        item.contentInsets = NSDirectionalEdgeInsets(top: 1, leading: 1, bottom: 1, trailing: 1)
+        
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize:  NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1/3),
+            heightDimension: .fractionalHeight(0.30)), repeatingSubitem: item, count: 3)
+        let section = NSCollectionLayoutSection(group: group)
+        return UICollectionViewCompositionalLayout(section: section)
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        characterCollectionView.collectionViewLayout = createLayout
         configuration()
+    
     }
 
 }
@@ -54,7 +56,8 @@ extension CharactersListViewController{
         characterCollectionView.register(UINib(nibName: "CharacterCell", bundle: nil), forCellWithReuseIdentifier: "CharacterCell")
         searchConfiguration()
         datasource = configureDataSource()
-        getAllCharacters()
+        observeEvents()
+        viewModel.fetchCharacters()
     }
     
     func searchConfiguration(){
@@ -66,10 +69,22 @@ extension CharactersListViewController{
         definesPresentationContext = true
     }
     
-    func getAllCharacters(url: String = characterURL){
-        charactersViewModel.getAllCharacters(url: url) { character in
-            self.info = character.info
-            self.characters.append(contentsOf: character.results)
+    private func observeEvents() {
+        viewModel.eventHandler = { [weak self] event in
+            guard let self else {
+                return
+            }
+            switch event {
+            case .loading:
+                break
+            case .stopLoading:
+                break
+            case .dataLoaded:
+                self.createSnapshot(characters: self.viewModel.characters)
+            case .error(let message):
+                /// Alert show kri daish
+                print(message)
+            }
         }
     }
     
@@ -90,7 +105,7 @@ extension CharactersListViewController{
         return dataSource
     }
     
-    func createSnapshot(characters: [Result]){
+    func createSnapshot(characters: [Character]){
         DispatchQueue.main.async {
             var snapshot = Snapshot()
             snapshot.appendSections([.main])
@@ -101,36 +116,20 @@ extension CharactersListViewController{
     
 }
 
-extension CharactersListViewController: UICollectionViewDelegateFlowLayout{
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.bounds.width
-        let numberOfItemsPerRow: CGFloat = 3
-        let spacing: CGFloat = flowLayout.minimumInteritemSpacing
-        let availableWidth = width - spacing * (numberOfItemsPerRow + 1)
-        let itemDimension = floor(availableWidth / numberOfItemsPerRow)
-        return CGSize(width: itemDimension, height: itemDimension)
-    }
-    
-}
-
 extension CharactersListViewController: UICollectionViewDelegate{
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "CharacterDetailViewController") as? CharacterDetailViewController else{
             return
         }
-        detailVC.character = characters[indexPath.row]
+        detailVC.character = viewModel.characters[indexPath.row]
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if indexPath.row == collectionView.numberOfItems(inSection: indexPath.section) - 1 &&             searchController.searchBar.text?.isEmpty == true{
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                guard let info = self.info,
-                      let next = info.next else { return }
-                self.getAllCharacters(url: next)
-            }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.viewModel.checkForNextPage(index: indexPath.row)
         }
     }
     
@@ -138,17 +137,10 @@ extension CharactersListViewController: UICollectionViewDelegate{
 
 extension CharactersListViewController: UISearchResultsUpdating{
     
+    /// Debounce
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchText = searchController.searchBar.text?.lowercased() else { return }
-        if Date().timeIntervalSince(previousRun) > minInterval {
-            previousRun = Date()
-            characters.removeAll()
-            if searchText.isEmpty{
-                getAllCharacters()
-            }else{
-                getAllCharacters(url: "\(filterCharacterURL)\(searchText)")
-            }
-        }
+        self.viewModel.searchCharacters(by: searchText)
     }
     
 }

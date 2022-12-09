@@ -8,9 +8,9 @@
 import Foundation
 
 // MARK: - Character
-struct Character: Codable{
+struct CharacterResponseModel: Codable {
     let info: Info
-    let results: [Result]
+    let results: [Character]
 }
 
 // MARK: - Info
@@ -21,7 +21,7 @@ struct Info: Codable {
 }
 ///https://stackoverflow.com/a/60455131/8201581
 // MARK: - Result
-struct Result: Codable{
+struct Character: Codable {
     let uuid = UUID()
     let id: Int
     let name: String
@@ -42,8 +42,8 @@ struct Result: Codable{
 
 }
 
-extension Result : Hashable {
-    static func ==(lhs: Result, rhs: Result) -> Bool {
+extension Character : Hashable {
+    static func ==(lhs: Character, rhs: Character) -> Bool {
         return lhs.uuid == rhs.uuid
     }
     
