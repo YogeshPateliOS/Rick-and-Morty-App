@@ -9,6 +9,7 @@ import UIKit
 
 class CharacterCell: UICollectionViewCell {
 
+    @IBOutlet weak var episodeCountLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var thumbnailImage: UIImageView!
     
@@ -16,6 +17,7 @@ class CharacterCell: UICollectionViewCell {
         didSet{
             thumbnailImage.loadImageAsync(with: character?.image)
             nameLabel.text = character?.name
+            episodeCountLabel.text = "\(character?.episode.count ?? 0)"
         }
     }
     
