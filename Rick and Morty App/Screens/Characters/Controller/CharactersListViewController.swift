@@ -102,8 +102,8 @@ extension CharactersListViewController: UICollectionViewDelegate{
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 guard let info = self.info,
-                      !info.next.isEmpty else { return }
-                self.getAllCharacters(url: self.info?.next ?? characterURL)
+                      let next = info.next else { return }
+                self.getAllCharacters(url: next)
             }
         }
     }
