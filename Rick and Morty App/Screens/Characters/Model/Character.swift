@@ -19,9 +19,10 @@ struct Info: Codable {
     let next: String?
     let prev: String?
 }
-
+///https://stackoverflow.com/a/60455131/8201581
 // MARK: - Result
-struct Result: Codable, Hashable{
+struct Result: Codable{
+    let uuid = UUID()
     let id: Int
     let name: String
     let status: String
@@ -33,6 +34,22 @@ struct Result: Codable, Hashable{
     let episode: [String]
     let url: String
     let created: String
+    
+    private enum CodingKeys : String, CodingKey {
+        case id, name, status, species, type, gender
+        case origin, location, image, episode, url, created
+    }
+
+}
+
+extension Result : Hashable {
+    static func ==(lhs: Result, rhs: Result) -> Bool {
+        return lhs.uuid == rhs.uuid
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(uuid)
+    }
 }
 
 //enum Gender: String, Codable {

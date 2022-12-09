@@ -24,7 +24,10 @@ class CharactersListViewController: UIViewController {
     fileprivate var info: Info?
     var characters = [Result]()
     private var datasource: DataSource!
-    
+    private var previousRun = Date()
+    private let minInterval = 0.05
+    fileprivate let searchController = UISearchController(searchResultsController: nil)
+
     let flowLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 5
@@ -43,9 +46,19 @@ class CharactersListViewController: UIViewController {
 extension CharactersListViewController{
     
     func configuration(){
+        self.title = "Characters"
         characterCollectionView.register(UINib(nibName: "CharacterCell", bundle: nil), forCellWithReuseIdentifier: "CharacterCell")
+        searchConfiguration()
         datasource = configureDataSource()
         getAllCharacters()
+    }
+    
+    func searchConfiguration(){
+        searchController.searchBar.placeholder = "Search"
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
     }
     
     func getAllCharacters(url: String = characterURL){
@@ -60,7 +73,7 @@ extension CharactersListViewController{
 
 extension CharactersListViewController{
     
-    func configureDataSource() -> UICollectionViewDiffableDataSource<Section, Result> {
+    func configureDataSource() -> DataSource {
         
         let dataSource = DataSource(collectionView: characterCollectionView) { (collectionView, indexPath, character) -> UICollectionViewCell? in
             
@@ -74,10 +87,12 @@ extension CharactersListViewController{
     }
     
     func createSnapshot(characters: [Result]){
-        var snapshot = Snapshot()
-        snapshot.appendSections([.main])
-        snapshot.appendItems(characters)
-        datasource.apply(snapshot, animatingDifferences: true)
+        DispatchQueue.main.async {
+            var snapshot = Snapshot()
+            snapshot.appendSections([.main])
+            snapshot.appendItems(characters)
+            self.datasource.apply(snapshot, animatingDifferences: true)
+        }
     }
     
 }
@@ -98,12 +113,29 @@ extension CharactersListViewController: UICollectionViewDelegateFlowLayout{
 extension CharactersListViewController: UICollectionViewDelegate{
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if indexPath.row == collectionView.numberOfItems(inSection: indexPath.section) - 1 {
-            
+        if indexPath.row == collectionView.numberOfItems(inSection: indexPath.section) - 1 &&             searchController.searchBar.text?.isEmpty == true{
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 guard let info = self.info,
                       let next = info.next else { return }
                 self.getAllCharacters(url: next)
+            }
+        }
+    }
+    
+}
+
+extension CharactersListViewController: UISearchResultsUpdating{
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let searchText = searchController.searchBar.text?.lowercased() else { return }
+        if Date().timeIntervalSince(previousRun) > minInterval {
+            previousRun = Date()
+            characters.removeAll()
+            createSnapshot(characters: [])
+            if searchText.isEmpty{
+                getAllCharacters()
+            }else{
+                getAllCharacters(url: "\(filterCharacterURL)\(searchText)")
             }
         }
     }

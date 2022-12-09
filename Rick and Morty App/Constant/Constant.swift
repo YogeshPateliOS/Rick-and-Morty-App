@@ -9,3 +9,4 @@
 
 let baseURL = "https://rickandmortyapi.com/api/"
 let characterURL = "\(baseURL)character"
+let filterCharacterURL = "\(baseURL)character/?name="
