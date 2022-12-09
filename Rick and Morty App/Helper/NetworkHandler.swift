@@ -14,7 +14,7 @@ enum DataError: Error {
     case decoding
 }
 
-typealias APIResponseBlock<T> = (Result<T, DataError>) -> Void
+typealias APIResponseBlock<T> = (Result<T,DataError>) -> Void
 
 final class NetworkHandler{
     

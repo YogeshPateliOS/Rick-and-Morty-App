@@ -126,10 +126,9 @@
 		90A4755429428CEA002DF6AD /* Characters */ = {
 			isa = PBXGroup;
 			children = (
-				90A4756429429F60002DF6AD /* ViewModel */,
 				90A4755729428D0D002DF6AD /* Model */,
 				90A4755629428D0B002DF6AD /* View */,
-				90A4755529428D08002DF6AD /* Controller */,
+				90A4756429429F60002DF6AD /* ViewModel */,
 			);
 			path = Characters;
 			sourceTree = "<group>";
@@ -147,6 +146,7 @@
 			children = (
 				90A4755E29428E7F002DF6AD /* CharacterCell.swift */,
 				90A4755F29428E7F002DF6AD /* CharacterCell.xib */,
+				90A4755529428D08002DF6AD /* Controller */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -188,7 +188,7 @@
 		90A4756D2942CF01002DF6AD /* Character Detail */ = {
 			isa = PBXGroup;
 			children = (
-				90A475702942CF61002DF6AD /* CharacterDetailViewController.swift */,
+				90F5FC362943E2DA00BB5D8D /* View */,
 			);
 			path = "Character Detail";
 			sourceTree = "<group>";
@@ -199,6 +199,14 @@
 				90A4754529428C3A002DF6AD /* Assets.xcassets */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		90F5FC362943E2DA00BB5D8D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				90A475702942CF61002DF6AD /* CharacterDetailViewController.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

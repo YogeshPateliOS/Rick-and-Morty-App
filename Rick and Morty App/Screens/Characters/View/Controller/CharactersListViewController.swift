@@ -14,7 +14,6 @@ enum Section {
 typealias DataSource = UICollectionViewDiffableDataSource<Section, Character>
 typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Character>
 
-
 class CharactersListViewController: UIViewController {
 
     @IBOutlet weak var loadingButton: UIButton!
@@ -26,7 +25,7 @@ class CharactersListViewController: UIViewController {
     
     fileprivate let searchController = UISearchController(searchResultsController: nil)
 
-    let createLayout: UICollectionViewCompositionalLayout = {
+    lazy var createLayout: UICollectionViewCompositionalLayout = {
         let item = NSCollectionLayoutItem(
             layoutSize: NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1),
@@ -93,10 +92,20 @@ extension CharactersListViewController{
                 DispatchQueue.main.async {
                     self.loadingButton.isHidden = true
                 }
-            case .error(let message):
-                /// Alert show kri daish
-                print(message)
+            case .error(_):
                 DispatchQueue.main.async {
+                    self.showAlert(
+                        title: Constants.API.errorTitle,
+                        message: Constants.API.errorMessage,
+                        alertStyle: .alert,
+                        actionTitles: ["Cancel", "Try Again"],
+                        actionStyles: [.cancel, .default],
+                        actions: [{_ in
+                            // Cancel Tapped
+                        }, {_ in
+                            // Try Again Tapped
+                            self.viewModel.fetchCharacters()
+                        }])
                     self.loadingButton.isHidden = true
                 }
             }
