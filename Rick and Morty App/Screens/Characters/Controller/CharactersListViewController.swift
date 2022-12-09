@@ -22,7 +22,11 @@ class CharactersListViewController: UIViewController {
     fileprivate let charactersViewModel = CharactersViewModel()
     
     fileprivate var info: Info?
-    var characters = [Result]()
+    var characters = [Result](){
+        didSet{
+            self.createSnapshot(characters: self.characters)
+        }
+    }
     private var datasource: DataSource!
     private var previousRun = Date()
     private let minInterval = 0.05
@@ -65,7 +69,6 @@ extension CharactersListViewController{
         charactersViewModel.getAllCharacters(url: url) { character in
             self.info = character.info
             self.characters.append(contentsOf: character.results)
-            self.createSnapshot(characters: self.characters)
         }
     }
     
@@ -131,7 +134,6 @@ extension CharactersListViewController: UISearchResultsUpdating{
         if Date().timeIntervalSince(previousRun) > minInterval {
             previousRun = Date()
             characters.removeAll()
-            createSnapshot(characters: [])
             if searchText.isEmpty{
                 getAllCharacters()
             }else{
