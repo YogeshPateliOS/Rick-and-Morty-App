@@ -28,3 +28,9 @@ class CharacterCell: UICollectionViewCell {
     }
 
 }
+
+extension CharacterCell{
+    static var idetifier: String{
+        "\(Self.self)"
+    }
+}

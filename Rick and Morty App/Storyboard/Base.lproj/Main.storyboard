@@ -31,12 +31,22 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Ife-QY-VeJ"/>
                                 </connections>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jGJ-Bg-3G0">
+                                <rect key="frame" x="115.66666666666667" y="774" width="161.66666666666663" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Asv-uc-nlg"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Downloading... " showsActivityIndicator="YES"/>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="D57-53-STX" secondAttribute="bottom" id="R3u-kd-81B"/>
                             <constraint firstItem="D57-53-STX" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="T33-Xg-Kjq"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="jGJ-Bg-3G0" secondAttribute="bottom" id="avG-Fu-yTQ"/>
+                            <constraint firstItem="jGJ-Bg-3G0" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cug-dS-lN7"/>
                             <constraint firstItem="D57-53-STX" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="zUh-cI-Qmx"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="D57-53-STX" secondAttribute="trailing" id="zco-0H-trw"/>
                         </constraints>
@@ -44,6 +54,7 @@
                     <navigationItem key="navigationItem" id="KdX-qs-zK6"/>
                     <connections>
                         <outlet property="characterCollectionView" destination="D57-53-STX" id="XCK-t0-t0e"/>
+                        <outlet property="loadingButton" destination="jGJ-Bg-3G0" id="2Y3-pw-p3r"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

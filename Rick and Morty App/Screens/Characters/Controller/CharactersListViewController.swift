@@ -17,6 +17,7 @@ typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Character>
 
 class CharactersListViewController: UIViewController {
 
+    @IBOutlet weak var loadingButton: UIButton!
     @IBOutlet weak var characterCollectionView: UICollectionView!
     
     private lazy var viewModel = CharactersViewModel()
@@ -52,8 +53,12 @@ class CharactersListViewController: UIViewController {
 extension CharactersListViewController{
     
     func configuration(){
-        self.title = "Characters"
-        characterCollectionView.register(UINib(nibName: "CharacterCell", bundle: nil), forCellWithReuseIdentifier: "CharacterCell")
+        self.title = Constants.NavTitle.characters
+        characterCollectionView.register(
+            UINib(nibName: CharacterCell.idetifier,
+                bundle: nil),
+            forCellWithReuseIdentifier: CharacterCell.idetifier
+        )
         searchConfiguration()
         datasource = configureDataSource()
         observeEvents()
@@ -61,7 +66,7 @@ extension CharactersListViewController{
     }
     
     func searchConfiguration(){
-        searchController.searchBar.placeholder = "Search"
+        searchController.searchBar.placeholder = Constants.search
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.hidesSearchBarWhenScrolling = false
@@ -76,14 +81,24 @@ extension CharactersListViewController{
             }
             switch event {
             case .loading:
-                break
+                DispatchQueue.main.async {
+                    self.loadingButton.isHidden = false
+                }
             case .stopLoading:
-                break
+                DispatchQueue.main.async {
+                    self.loadingButton.isHidden = true
+                }
             case .dataLoaded:
                 self.createSnapshot(characters: self.viewModel.characters)
+                DispatchQueue.main.async {
+                    self.loadingButton.isHidden = true
+                }
             case .error(let message):
                 /// Alert show kri daish
                 print(message)
+                DispatchQueue.main.async {
+                    self.loadingButton.isHidden = true
+                }
             }
         }
     }
@@ -96,7 +111,7 @@ extension CharactersListViewController{
         
         let dataSource = DataSource(collectionView: characterCollectionView) { (collectionView, indexPath, character) -> UICollectionViewCell? in
             
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CharacterCell", for: indexPath) as! CharacterCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CharacterCell.idetifier, for: indexPath) as! CharacterCell
             cell.character = character
             
             return cell
@@ -118,10 +133,8 @@ extension CharactersListViewController{
 
 extension CharactersListViewController: UICollectionViewDelegate{
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "CharacterDetailViewController") as? CharacterDetailViewController else{
-            return
-        }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {        
+        let detailVC = CharacterDetailViewController.instantiateFromStoryboard()
         detailVC.character = viewModel.characters[indexPath.row]
         self.navigationController?.pushViewController(detailVC, animated: true)
     }

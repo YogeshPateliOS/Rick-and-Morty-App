@@ -30,14 +30,14 @@ class CharacterDetailViewController: UITableViewController {
 extension CharacterDetailViewController{
     
     func configuration(){
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.Idetifier.cell)
         title = character?.name
         thumbnailImageView.layer.cornerRadius = 12
         statusValueLabel.text = character?.status
         specieValueLabel.text = character?.species
         genderValueLabel.text = character?.gender
         locationValueLabel.text = character?.location.name
-        statusImageView.tintColor = character?.status == "Alive" ? .green : .red
+        statusImageView.tintColor = character?.status == Constants.alive ? .green : .red
         thumbnailImageView.loadImageAsync(with: character?.image)
         
     }
@@ -59,8 +59,8 @@ extension CharacterDetailViewController{
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 2{
-            var cell = tableView.dequeueReusableCell(withIdentifier: "cell")
-            cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
+            var cell = tableView.dequeueReusableCell(withIdentifier: Constants.Idetifier.cell)
+            cell = UITableViewCell(style: .subtitle, reuseIdentifier: Constants.Idetifier.cell)
             CharactersViewModel().getEpisodeDetail(
                 url: character?.episode[indexPath.row] ?? "") { episode in
                     DispatchQueue.main.async {
@@ -78,7 +78,7 @@ extension CharacterDetailViewController{
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 2{
-            return "EPISODES (\(character?.episode.count ?? 0))"
+            return "\(Constants.episodes) (\(character?.episode.count ?? 0))"
         }
         return super.tableView(tableView, titleForHeaderInSection: section)
     }
@@ -110,3 +110,4 @@ extension CharacterDetailViewController {
     }
     
 }
+

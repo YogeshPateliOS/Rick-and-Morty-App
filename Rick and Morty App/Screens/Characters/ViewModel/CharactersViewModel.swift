@@ -10,7 +10,7 @@ import Foundation
 final class CharactersViewModel {
     
     var characters: [Character] = []
-    private var nextPageUrl: String? = Constants.characterURL
+    private var nextPageUrl: String? = Constants.API.characterURL
     private var isFetchingRecords = false
     var eventHandler: ((_ event: Event) -> Void)?
     typealias characterResult = (CharacterResponseModel, DataError) -> Void
@@ -53,9 +53,9 @@ final class CharactersViewModel {
         self.characters = []
         self.eventHandler?(.dataLoaded)
         if name.isEmpty {
-            nextPageUrl = Constants.characterURL
+            nextPageUrl = Constants.API.characterURL
         } else {
-            nextPageUrl = "\(Constants.filterCharacterURL)\(name)"
+            nextPageUrl = "\(Constants.API.filterCharacterURL)\(name)"
         }
         fetchCharacters()
     }
