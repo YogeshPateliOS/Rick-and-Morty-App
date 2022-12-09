@@ -14,7 +14,7 @@ class CharacterCell: UICollectionViewCell {
     
     var character: Result?{
         didSet{
-            thumbnailImage.image = UIImage(systemName: "person.circle.fill")
+            thumbnailImage.loadImageAsync(with: character?.image)
             nameLabel.text = character?.name
         }
     }
