@@ -23,6 +23,8 @@
 		90A4756C2942B5F7002DF6AD /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A4756B2942B5F7002DF6AD /* Constant.swift */; };
 		90A475712942CF61002DF6AD /* CharacterDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A475702942CF61002DF6AD /* CharacterDetailViewController.swift */; };
 		90F5FC352943DE6A00BB5D8D /* UIViewController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F5FC342943DE6A00BB5D8D /* UIViewController + Extension.swift */; };
+		90F5FC3F2944220C00BB5D8D /* UIButton + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F5FC3E2944220C00BB5D8D /* UIButton + Extension.swift */; };
+		90F5FC4229453F8100BB5D8D /* CharacterDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F5FC4129453F8100BB5D8D /* CharacterDetailsViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,8 @@
 		90A4756B2942B5F7002DF6AD /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		90A475702942CF61002DF6AD /* CharacterDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailViewController.swift; sourceTree = "<group>"; };
 		90F5FC342943DE6A00BB5D8D /* UIViewController + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + Extension.swift"; sourceTree = "<group>"; };
+		90F5FC3E2944220C00BB5D8D /* UIButton + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton + Extension.swift"; sourceTree = "<group>"; };
+		90F5FC4129453F8100BB5D8D /* CharacterDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailsViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +177,7 @@
 			children = (
 				90A475672942B43E002DF6AD /* UIImageView + Extension.swift */,
 				90F5FC342943DE6A00BB5D8D /* UIViewController + Extension.swift */,
+				90F5FC3E2944220C00BB5D8D /* UIButton + Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -189,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				90F5FC362943E2DA00BB5D8D /* View */,
+				90F5FC4029453F7300BB5D8D /* ViewModel */,
 			);
 			path = "Character Detail";
 			sourceTree = "<group>";
@@ -209,6 +215,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		90F5FC4029453F7300BB5D8D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				90F5FC4129453F8100BB5D8D /* CharacterDetailsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -225,6 +239,8 @@
 			dependencies = (
 			);
 			name = "Rick and Morty App";
+			packageProductDependencies = (
+			);
 			productName = "Rick and Morty App";
 			productReference = 90A4753929428C38002DF6AD /* Rick and Morty App.app */;
 			productType = "com.apple.product-type.application";
@@ -253,6 +269,8 @@
 				Base,
 			);
 			mainGroup = 90A4753029428C38002DF6AD;
+			packageReferences = (
+			);
 			productRefGroup = 90A4753A29428C38002DF6AD /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -282,6 +300,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				90A475712942CF61002DF6AD /* CharacterDetailViewController.swift in Sources */,
+				90F5FC3F2944220C00BB5D8D /* UIButton + Extension.swift in Sources */,
 				90A4756029428E7F002DF6AD /* CharacterCell.swift in Sources */,
 				90A4756629429F7A002DF6AD /* CharactersViewModel.swift in Sources */,
 				90A4753D29428C38002DF6AD /* AppDelegate.swift in Sources */,
@@ -289,6 +308,7 @@
 				90A4755D29428E62002DF6AD /* CharacterResponseModel.swift in Sources */,
 				90A475682942B43E002DF6AD /* UIImageView + Extension.swift in Sources */,
 				90A4753F29428C38002DF6AD /* SceneDelegate.swift in Sources */,
+				90F5FC4229453F8100BB5D8D /* CharacterDetailsViewModel.swift in Sources */,
 				90A4756C2942B5F7002DF6AD /* Constant.swift in Sources */,
 				90A4755B29428E52002DF6AD /* CharactersListViewController.swift in Sources */,
 				90F5FC352943DE6A00BB5D8D /* UIViewController + Extension.swift in Sources */,

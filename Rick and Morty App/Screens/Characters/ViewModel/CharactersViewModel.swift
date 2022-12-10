@@ -8,29 +8,29 @@
 import Foundation
 
 final class CharactersViewModel {
-    
+
     var characters: [Character] = []
     private var nextPageUrl: String? = Constants.API.characterURL
     private var isFetchingRecords = false
     var eventHandler: ((_ event: Event) -> Void)?
-    typealias characterResult = (CharacterResponseModel, DataError) -> Void
+    typealias CharacterResult = (CharacterResponseModel, DataError) -> Void
     private lazy var previousRun = Date.now
     private let minInterval = 0.05
-    
+
     func checkForNextPage(index: Int) {
         guard !isFetchingRecords && index == characters.count - 1 else {
             return
         }
         fetchCharacters()
     }
-    
+
     func fetchCharacters() {
         guard let nextPageUrl else {
             return
         }
         eventHandler?(.loading)
         isFetchingRecords = true
-        NetworkHandler.shared.get(url: nextPageUrl){ (result: Result<CharacterResponseModel, DataError>) in
+        NetworkHandler.shared.get(url: nextPageUrl) { (result: Result<CharacterResponseModel, DataError>) in
             self.isFetchingRecords = false
             self.eventHandler?(.stopLoading)
             switch result {
@@ -42,11 +42,11 @@ final class CharactersViewModel {
                 self.eventHandler?(.error(failure.localizedDescription))
             }
         }
-        
+
     }
-    
+
     func searchCharacters(by name: String) {
-        guard Date().timeIntervalSince(previousRun) > minInterval else{
+        guard Date().timeIntervalSince(previousRun) > minInterval else {
             return
         }
         previousRun = Date()
@@ -59,18 +59,11 @@ final class CharactersViewModel {
         }
         fetchCharacters()
     }
-        
-    public func getAllCharacters(
-        url: String,
-        completion: @escaping APIResponseBlock<CharacterResponseModel>
-    ){
-        NetworkHandler.shared.get(url: url, completion: completion)
-    }
-    
-    public func getEpisodeDetail(
+
+    func getEpisodeDetail(
         url: String,
         completion: @escaping (_ episode: EpisodeDetail) -> Void
-    ){
+    ) {
         NetworkHandler.shared.get(
             url: url) { (result: Swift.Result<EpisodeDetail, DataError>) in
                 switch result {
@@ -81,7 +74,7 @@ final class CharactersViewModel {
                 }
             }
     }
-    
+
 }
 
 extension CharactersViewModel {

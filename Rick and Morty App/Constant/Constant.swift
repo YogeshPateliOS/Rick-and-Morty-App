@@ -7,26 +7,28 @@
 
 /// Enum and Struct Value type so space bav na roke
 /// https://medium.com/swift-india/defining-global-constants-in-swift-a80d9e5cbd42
+
 enum Constants {
-    
+
     static let search = "Search"
     static let alive = "Alive"
     static let episodes = "EPISODES"
-    enum API{
+
+    enum API {
         static let baseURL = "https://rickandmortyapi.com/api/"
         static let characterURL = "\(baseURL)character"
         static let filterCharacterURL = "\(baseURL)character/?name="
         static let errorTitle = "Connectivity Issue"
         static let errorMessage = "We are encountering a problem processing the request. Please check your connectivity."
+        static let loading = "Loading..."
     }
-    
-    enum NavTitle{
+
+    enum NavTitle {
         static let characters = "Characters"
     }
-    
-    enum Idetifier{
+
+    enum Idetifier {
         static let cell = "cell"
     }
-    
-    
+
 }
