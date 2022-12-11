@@ -9,10 +9,12 @@ import UIKit
 
 class CharacterCell: UICollectionViewCell {
 
+    // MARK: - Outlets
     @IBOutlet weak var episodeCountLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var thumbnailImage: UIImageView!
 
+    // MARK: - Variables
     var character: Character? {
         didSet {
             thumbnailImage.loadImageAsync(with: character?.image)
@@ -21,6 +23,7 @@ class CharacterCell: UICollectionViewCell {
         }
     }
 
+    // MARK: - UI
     override func awakeFromNib() {
         super.awakeFromNib()
         contentView.layer.cornerRadius = 6
@@ -30,7 +33,7 @@ class CharacterCell: UICollectionViewCell {
 }
 
 extension CharacterCell {
-    static var idetifier: String {
+    static var identifier: String {
         "\(Self.self)"
     }
 }

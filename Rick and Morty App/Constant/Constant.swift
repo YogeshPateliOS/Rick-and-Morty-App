@@ -27,7 +27,7 @@ enum Constants {
         static let characters = "Characters"
     }
 
-    enum Idetifier {
+    enum Identifier {
         static let cell = "cell"
     }
 

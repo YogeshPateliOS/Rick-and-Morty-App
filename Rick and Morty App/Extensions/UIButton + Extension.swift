@@ -8,8 +8,8 @@
 import UIKit
 
 extension UIButton {
-
-    func configurButton(
+    // Configure Button With Downloading and loading indicator
+    func configureButton(
         title: String,
         isShowIndicator: Bool = true
         ) {

@@ -16,13 +16,15 @@ typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Character>
 
 class CharactersListViewController: UIViewController {
 
+    // MARK: - Outlets
     @IBOutlet weak var loadingButton: UIButton!
     @IBOutlet weak var characterCollectionView: UICollectionView!
 
+    // MARK: - Variables
     private lazy var viewModel = CharactersViewModel()
     private var datasource: DataSource!
     private let searchController = UISearchController(searchResultsController: nil)
-
+    // Create Layout of CollectionView
     private lazy var createLayout: UICollectionViewCompositionalLayout = {
         let item = NSCollectionLayoutItem(
             layoutSize: NSCollectionLayoutSize(
@@ -37,6 +39,7 @@ class CharactersListViewController: UIViewController {
         return UICollectionViewCompositionalLayout(section: section)
     }()
 
+    // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         characterCollectionView.collectionViewLayout = createLayout
@@ -45,14 +48,16 @@ class CharactersListViewController: UIViewController {
 
 }
 
+// MARK: - Helper Methods
 extension CharactersListViewController {
 
+    // UI Configuration
     private func configuration() {
         self.title = Constants.NavTitle.characters
         characterCollectionView.register(
-            UINib(nibName: CharacterCell.idetifier,
+            UINib(nibName: CharacterCell.identifier,
                   bundle: nil),
-            forCellWithReuseIdentifier: CharacterCell.idetifier
+            forCellWithReuseIdentifier: CharacterCell.identifier
         )
         searchConfiguration()
         datasource = configureDataSource()
@@ -60,6 +65,7 @@ extension CharactersListViewController {
         viewModel.fetchCharacters()
     }
 
+    // Search Configuration
     private func searchConfiguration() {
         searchController.searchBar.placeholder = Constants.search
         searchController.searchResultsUpdater = self
@@ -69,6 +75,7 @@ extension CharactersListViewController {
         definesPresentationContext = true
     }
 
+    // Observe event Data Binding using Closure
     private func observeEvents() {
         viewModel.eventHandler = { [weak self] event in
             guard let self else {
@@ -76,7 +83,7 @@ extension CharactersListViewController {
             }
             switch event {
             case .loading:
-                self.loadingButton.configurButton(title: Constants.API.loading)
+                self.loadingButton.configureButton(title: Constants.API.loading)
             case .stopLoading:
                 self.loadingButton.isHidden = true
             case .dataLoaded:
@@ -88,19 +95,19 @@ extension CharactersListViewController {
         }
     }
 
+    // Handling Filter and normal api calling error state
     private func handleError(_ message: String) {
         /// Filter enable and not found a name
         let name = self.searchController.searchBar.text ?? ""
         guard name.isEmpty else {
-            self.loadingButton.configurButton(
+            self.loadingButton.configureButton(
                 title: "\(name) name not available.",
                 isShowIndicator: false
             )
             return
         }
 
-        /// without filter error - response error or network error
-
+        // without filter error - response error or network error
         let tryAgain = UIAlertAction.tryAgainAction { [unowned self] _ in
             self.viewModel.fetchCharacters()
         }
@@ -115,13 +122,15 @@ extension CharactersListViewController {
 
 }
 
+// MARK: - UICollectionViewDiffableDataSource Configuration for TableView
 extension CharactersListViewController {
 
+    // Configure DataSource for tableview
     private func configureDataSource() -> DataSource {
         let dataSource = DataSource(
             collectionView: characterCollectionView) { collectionView, indexPath, character in
                 guard let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: CharacterCell.idetifier,
+                    withReuseIdentifier: CharacterCell.identifier,
                     for: indexPath) as? CharacterCell else {
                     return UICollectionViewCell()
                 }
@@ -131,8 +140,9 @@ extension CharactersListViewController {
         return dataSource
     }
 
+    // Create snapshot will do CRUD Operation of tableview - no need to reloadData()
     private func createSnapshot(characters: [Character]) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { // UI Work
             var snapshot = Snapshot()
             snapshot.appendSections([.main])
             snapshot.appendItems(characters)
@@ -142,13 +152,14 @@ extension CharactersListViewController {
 
 }
 
+// MARK: - UICollectionViewDelegate Methods
 extension CharactersListViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let detailVC = CharacterDetailViewController.instantiateFromStoryboard() else {
             return
         }
-        detailVC.character = viewModel.characters[indexPath.row]
+        detailVC.character = viewModel.characters[indexPath.row] // Passing selected character to detail screen
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
 
@@ -164,9 +175,10 @@ extension CharactersListViewController: UICollectionViewDelegate {
 
 }
 
+// MARK: - UISearchResultsUpdating Method
 extension CharactersListViewController: UISearchResultsUpdating {
 
-    /// Debounce
+    /// Debounce technique - it will not call api every time when user write input - Improve performance
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchText = searchController.searchBar.text?.lowercased() else { return }
         self.viewModel.searchCharacters(by: searchText)

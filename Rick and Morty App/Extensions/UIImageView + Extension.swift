@@ -7,7 +7,6 @@
 
 import UIKit
 
-/// https://stackoverflow.com/a/45183939/8201581
 extension UIImageView {
     private static var taskKey = 0
     private static var urlKey = 0
@@ -22,6 +21,7 @@ extension UIImageView {
         set { objc_setAssociatedObject(self, &UIImageView.urlKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
 
+    // Load Image Async with support cache - so it will not call api for every image.
     func loadImageAsync(with urlString: String?, placeholder: UIImage? = nil) {
         // cancel prior task, if any
 

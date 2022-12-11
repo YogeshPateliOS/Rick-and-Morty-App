@@ -4,9 +4,10 @@
 //
 //  Created by Yogesh Patel on 08/12/22.
 //
-/// https://tonny.medium.com/using-swifts-generic-decodable-and-result-in-api-504164a49c0f
+
 import Foundation
 
+// API Error cases - ENUM
 enum DataError: Error {
     case network(Error)
     case invalidResponse
@@ -16,11 +17,16 @@ enum DataError: Error {
 
 typealias APIResponseBlock<T> = (Result<T, DataError>) -> Void
 
+// Singleton Pattern for networking API
 final class NetworkHandler {
 
     static let shared = NetworkHandler()
-    private init() {}
+    private init() {} // Singleton - No one can make instance outside of the class
 
+    /// Generic API Calling
+    /// - Parameters:
+    ///   - url: pass the API URL
+    ///   - completion: It will return model response and error in form of DataError
     func get<T: Decodable>(url: String, completion: @escaping APIResponseBlock<T>) {
         guard let url = URL(string: url) else { return }
 
@@ -41,7 +47,7 @@ final class NetworkHandler {
                     completion(.failure(.invalidData))
                     return
                 }
-
+                /// JSONDecoder to parse data - API Response to Model
                 do {
                     let decodedData = try JSONDecoder().decode(T.self, from: data)
                     completion(.success(decodedData))

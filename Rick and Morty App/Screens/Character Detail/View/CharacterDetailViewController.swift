@@ -9,15 +9,19 @@ import UIKit
 
 class CharacterDetailViewController: UITableViewController {
 
+    // MARK: - Outlets
     @IBOutlet weak var genderValueLabel: UILabel!
     @IBOutlet weak var specieValueLabel: UILabel!
     @IBOutlet weak var locationValueLabel: UILabel!
     @IBOutlet weak var statusImageView: UIImageView!
     @IBOutlet weak var thumbnailImageView: UIImageView!
     @IBOutlet weak var statusValueLabel: UILabel!
+
+    // MARK: - Variables
     var character: Character!
     private lazy var viewModel = CharacterDetailsViewModel(character: character)
 
+    // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         configuration()
@@ -28,14 +32,16 @@ class CharacterDetailViewController: UITableViewController {
     }
 }
 
+// MARK: - Helper Methods
 extension CharacterDetailViewController {
 
+    // UI Configuration
     private func configuration() {
         guard character != nil else {
             self.navigationController?.popViewController(animated: true)
             return
         }
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.Idetifier.cell)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.Identifier.cell)
         detailConfiguration()
         viewModel.loadMoreEpisodes()
         viewModel.dataSourceUpdated = { [weak self] in
@@ -43,6 +49,7 @@ extension CharacterDetailViewController {
         }
     }
 
+    // Character Detail Configuration
     private func detailConfiguration() {
         title = viewModel.character.name
         thumbnailImageView.layer.cornerRadius = 12
@@ -56,8 +63,10 @@ extension CharacterDetailViewController {
 
 }
 
+// MARK: - UITableViewDataSource & UITableViewDelegate Methods
 extension CharacterDetailViewController {
 
+    // Combination of Static and Dynamic Row
     override func numberOfSections(in tableView: UITableView) -> Int {
         guard character != nil else { return 0 }
         return viewModel.episodes.count == viewModel.episodesUrl.count ? 3 : 4
@@ -72,12 +81,11 @@ extension CharacterDetailViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 2 {
-            guard var cell = tableView.dequeueReusableCell(withIdentifier: Constants.Idetifier.cell) else {
+            guard var cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.cell) else {
                 return UITableViewCell()
             }
-            cell = UITableViewCell(style: .subtitle, reuseIdentifier: Constants.Idetifier.cell)
-            cell.selectionStyle = .none
-            var content = cell.defaultContentConfiguration()
+            cell = UITableViewCell(style: .subtitle, reuseIdentifier: Constants.Identifier.cell)
+            var content = cell.episodeListContentConfiguration()
             let info = self.viewModel.episodes[indexPath.row]
             content.text = info.episode + " - " + info.name
             content.secondaryText = info.airDate

@@ -7,6 +7,7 @@
 
 import UIKit
 
+// MARK: - Generic - Get ViewController object using Storyboard
 extension UIViewController {
 
     static func instantiateFromStoryboard(_ name: String = "Main") -> Self? {
@@ -21,15 +22,15 @@ extension UIViewController {
 
 }
 
+// MARK: - Reusable AlertController
 extension UIViewController {
 
     func openAlert(title: String? = nil,
                    message: String? = nil,
                    actions: [UIAlertAction] = [.dismissAction]) {
-        let alertCtr = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        actions.forEach { alertCtr.addAction($0) }
-        self.present(alertCtr, animated: true)
-
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        actions.forEach { alertController.addAction($0) }
+        self.present(alertController, animated: true)
     }
 
     func configNavigation(title: String, largeTitle: Bool) {

@@ -25,6 +25,7 @@
 		90F5FC352943DE6A00BB5D8D /* UIViewController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F5FC342943DE6A00BB5D8D /* UIViewController + Extension.swift */; };
 		90F5FC3F2944220C00BB5D8D /* UIButton + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F5FC3E2944220C00BB5D8D /* UIButton + Extension.swift */; };
 		90F5FC4229453F8100BB5D8D /* CharacterDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F5FC4129453F8100BB5D8D /* CharacterDetailsViewModel.swift */; };
+		90FB8DD429465D81004A6FE2 /* UITableViewCell + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FB8DD329465D81004A6FE2 /* UITableViewCell + Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		90F5FC342943DE6A00BB5D8D /* UIViewController + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + Extension.swift"; sourceTree = "<group>"; };
 		90F5FC3E2944220C00BB5D8D /* UIButton + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton + Extension.swift"; sourceTree = "<group>"; };
 		90F5FC4129453F8100BB5D8D /* CharacterDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailsViewModel.swift; sourceTree = "<group>"; };
+		90FB8DD329465D81004A6FE2 /* UITableViewCell + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell + Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +180,7 @@
 				90A475672942B43E002DF6AD /* UIImageView + Extension.swift */,
 				90F5FC342943DE6A00BB5D8D /* UIViewController + Extension.swift */,
 				90F5FC3E2944220C00BB5D8D /* UIButton + Extension.swift */,
+				90FB8DD329465D81004A6FE2 /* UITableViewCell + Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 				90A4756629429F7A002DF6AD /* CharactersViewModel.swift in Sources */,
 				90A4753D29428C38002DF6AD /* AppDelegate.swift in Sources */,
 				90A4756A2942B470002DF6AD /* ImageCache.swift in Sources */,
+				90FB8DD429465D81004A6FE2 /* UITableViewCell + Extension.swift in Sources */,
 				90A4755D29428E62002DF6AD /* CharacterResponseModel.swift in Sources */,
 				90A475682942B43E002DF6AD /* UIImageView + Extension.swift in Sources */,
 				90A4753F29428C38002DF6AD /* SceneDelegate.swift in Sources */,

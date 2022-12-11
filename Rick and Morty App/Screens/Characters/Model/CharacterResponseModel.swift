@@ -19,7 +19,7 @@ struct Info: Codable {
     let next: String?
     let prev: String?
 }
-// https://stackoverflow.com/a/60455131/8201581
+
 // MARK: - Result
 struct Character: Codable, Hashable {
     let id = UUID() /// API Contains duplicate values so need to be unique so use UUID here
@@ -57,15 +57,3 @@ struct EpisodeDetail: Codable {
         case airDate = "air_date"
     }
 }
-
-/*
- extension Character: Hashable {
- static func == (lhs: Character, rhs: Character) -> Bool {
- return lhs.uuid == rhs.uuid
- }
-
- func hash(into hasher: inout Hasher) {
- hasher.combine(uuid)
- }
- }
- */

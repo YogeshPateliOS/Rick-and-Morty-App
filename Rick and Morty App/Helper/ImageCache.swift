@@ -7,7 +7,9 @@
 
 import UIKit
 
-class ImageCache {
+/// Image Cache - Async loading - No need to fetch image every time - Once we fetch image from api it will store to cache directory in form of key and value pair
+/// Result: First we check that image is stored in cache then fetch that if it not then only will call API. (Smooth Result)
+final class ImageCache {
     private let cache = NSCache<NSString, UIImage>()
     private var observer: NSObjectProtocol?
 
