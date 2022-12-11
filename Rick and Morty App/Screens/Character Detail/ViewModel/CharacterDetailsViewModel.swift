@@ -30,15 +30,13 @@ final class CharacterDetailsViewModel {
         url: String,
         completion: @escaping (_ episode: EpisodeDetail) -> Void
     ) {
-        DispatchQueue.main.async {
-            Task{
-                let result = await self.fetchEpisodeDetailResponse(url)
-                switch result {
-                case .success(let episode):
-                    completion(episode)
-                case .failure(let error):
-                    print(error.localizedDescription)
-                }
+        Task { @MainActor in
+            let result = await self.fetchEpisodeDetailResponse(url)
+            switch result {
+            case .success(let episode):
+                completion(episode)
+            case .failure(let error):
+                print(error.localizedDescription)
             }
         }
     }

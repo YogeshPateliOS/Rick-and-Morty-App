@@ -27,26 +27,24 @@ final class CharactersViewModel {
     }
 
     // Fetch Characters from API
-    func fetchCharacters(){
-        DispatchQueue.main.async {
-            guard let nextPageUrl = self.nextPageUrl else {
-                return
-            }
-            self.eventHandler?(.loading) // Loading State
-            self.isFetchingRecords = true
-
-            Task {
-                let result = await self.fetchCharacterResponse(nextPageUrl)
-                self.isFetchingRecords = false
-                self.eventHandler?(.stopLoading)
-                switch result {
-                case .success(let model):
-                    self.characters.append(contentsOf: model.results)
-                    self.nextPageUrl = model.info.next
-                    self.eventHandler?(.dataLoaded)
-                case .failure(let failure):
-                    self.eventHandler?(.error(failure.localizedDescription))
-                }
+    func fetchCharacters() {
+        guard let nextPageUrl = self.nextPageUrl else {
+            return
+        }
+        self.eventHandler?(.loading) // Loading State
+        self.isFetchingRecords = true
+        
+        Task { @MainActor in
+            let result = await self.fetchCharacterResponse(nextPageUrl)
+            self.isFetchingRecords = false
+            self.eventHandler?(.stopLoading)
+            switch result {
+            case .success(let model):
+                self.characters.append(contentsOf: model.results)
+                self.nextPageUrl = model.info.next
+                self.eventHandler?(.dataLoaded)
+            case .failure(let failure):
+                self.eventHandler?(.error(failure.localizedDescription))
             }
         }
     }
