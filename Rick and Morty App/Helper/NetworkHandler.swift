@@ -11,11 +11,11 @@ import Foundation
 enum DataError: Error {
     case network(Error)
     case invalidResponse
-    case invalidData
+    case invalidURL
     case decoding
 }
 
-typealias APIResponseBlock<T> = (Result<T, DataError>) -> Void
+typealias APIResponseBlock<T> = (Result<T, DataError>)
 
 // Singleton Pattern for networking API
 final class NetworkHandler {
@@ -27,35 +27,53 @@ final class NetworkHandler {
     /// - Parameters:
     ///   - url: pass the API URL
     ///   - completion: It will return model response and error in form of DataError
-    func get<T: Decodable>(url: String, completion: @escaping APIResponseBlock<T>) {
-        guard let url = URL(string: url) else { return }
+    /*func get<T: Decodable>(url: String, completion: @escaping APIResponseBlock<T>) {
+     guard let url = URL(string: url) else { return }
 
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            DispatchQueue.main.async {
-                if let error = error {
-                    completion(.failure(.network(error)))
-                    return
-                }
+     URLSession.shared.dataTask(with: url) { (data, response, error) in
+     DispatchQueue.main.async {
+     if let error = error {
+     completion(.failure(.network(error)))
+     return
+     }
 
-                guard let response = response as? HTTPURLResponse,
-                      200 ... 299 ~= response.statusCode else {
-                    completion(.failure(.invalidResponse))
-                    return
-                }
+     guard let response = response as? HTTPURLResponse,
+     200 ... 299 ~= response.statusCode else {
+     completion(.failure(.invalidResponse))
+     return
+     }
 
-                guard let data = data else {
-                    completion(.failure(.invalidData))
-                    return
-                }
-                /// JSONDecoder to parse data - API Response to Model
-                do {
-                    let decodedData = try JSONDecoder().decode(T.self, from: data)
-                    completion(.success(decodedData))
-                } catch {
-                    completion(.failure(.decoding))
-                }
+     guard let data = data else {
+     completion(.failure(.invalidData))
+     return
+     }
+     /// JSONDecoder to parse data - API Response to Model
+     do {
+     let decodedData = try JSONDecoder().decode(T.self, from: data)
+     completion(.success(decodedData))
+     } catch {
+     completion(.failure(.decoding))
+     }
+     }
+     }.resume()
+     }*/
+
+    func get<T: Decodable>(url: String) async -> APIResponseBlock<T>{
+        guard let url = URL(string: url) else {
+            return .failure(.invalidURL)
+        }
+        do {
+            let (data, response) = try await URLSession.shared.data(from: url)
+            guard let response = response as? HTTPURLResponse,
+                  200 ... 299 ~= response.statusCode else {
+                return .failure(.invalidResponse)
             }
-        }.resume()
+            guard let decodedData = try? JSONDecoder().decode(T.self, from: data) else {
+                return .failure(.decoding)
+            }
+            return .success(decodedData)
+        } catch  {
+            return .failure(.network(error))
+        }
     }
-
 }

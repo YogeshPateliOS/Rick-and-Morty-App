@@ -30,8 +30,9 @@ final class CharacterDetailsViewModel {
         url: String,
         completion: @escaping (_ episode: EpisodeDetail) -> Void
     ) {
-        NetworkHandler.shared.get(
-            url: url) { (result: Swift.Result<EpisodeDetail, DataError>) in
+        DispatchQueue.main.async {
+            Task{
+                let result = await self.fetchEpisodeDetailResponse(url)
                 switch result {
                 case .success(let episode):
                     completion(episode)
@@ -39,7 +40,13 @@ final class CharacterDetailsViewModel {
                     print(error.localizedDescription)
                 }
             }
+        }
     }
+
+    private func fetchEpisodeDetailResponse(_ url: String) async -> Result<EpisodeDetail, DataError> {
+        return await NetworkHandler.shared.get(url: url)
+    }
+
 
     // Load More Episode - Loading 20 Episode at a time
     func loadMoreEpisodes() {
