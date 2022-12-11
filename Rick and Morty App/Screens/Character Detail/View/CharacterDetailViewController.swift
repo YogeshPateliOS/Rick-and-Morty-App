@@ -21,7 +21,6 @@ class CharacterDetailViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configuration()
-        viewModel.loadMoreEpisodes()
     }
 
     @IBAction func loadMoreEpisodes(_ sender: UIButton) {
@@ -32,23 +31,27 @@ class CharacterDetailViewController: UITableViewController {
 extension CharacterDetailViewController {
 
     private func configuration() {
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.Idetifier.cell)
-        title = character?.name
-        thumbnailImageView.layer.cornerRadius = 12
-        statusValueLabel.text = character?.status
-        specieValueLabel.text = character?.species
-        genderValueLabel.text = character?.gender
-        locationValueLabel.text = character?.location.name
-        statusImageView.tintColor = character?.status == Constants.alive ? .green : .red
-        thumbnailImageView.loadImageAsync(with: character?.image)
-
         guard character != nil else {
             self.navigationController?.popViewController(animated: true)
             return
         }
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.Idetifier.cell)
+        detailConfiguration()
+        viewModel.loadMoreEpisodes()
         viewModel.dataSourceUpdated = { [weak self] in
             self?.tableView.reloadData()
         }
+    }
+
+    private func detailConfiguration() {
+        title = viewModel.character.name
+        thumbnailImageView.layer.cornerRadius = 12
+        statusValueLabel.text = viewModel.character.status
+        specieValueLabel.text = viewModel.character.species
+        genderValueLabel.text = viewModel.character.gender
+        locationValueLabel.text = viewModel.character.location.name
+        statusImageView.tintColor = viewModel.character.status == Constants.alive ? .green : .red
+        thumbnailImageView.loadImageAsync(with: viewModel.character.image)
     }
 
 }
@@ -56,7 +59,8 @@ extension CharacterDetailViewController {
 extension CharacterDetailViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        viewModel.episodes.count == viewModel.episodesUrl.count ? 3 : 4
+        guard character != nil else { return 0 }
+        return viewModel.episodes.count == viewModel.episodesUrl.count ? 3 : 4
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -85,7 +89,7 @@ extension CharacterDetailViewController {
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 2 {
-            return "\(Constants.episodes) (\(character?.episode.count ?? 0))"
+            return "\(Constants.episodes) (\(viewModel.episodesUrl.count))"
         }
         return super.tableView(tableView, titleForHeaderInSection: section)
     }

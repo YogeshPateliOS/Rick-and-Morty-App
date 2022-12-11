@@ -77,6 +77,7 @@ final class CharactersViewModel {
 
 }
 
+// MARK: - Event handler
 extension CharactersViewModel {
     enum Event {
         case loading

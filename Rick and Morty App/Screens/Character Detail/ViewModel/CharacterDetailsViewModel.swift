@@ -10,9 +10,9 @@ import Foundation
 class CharacterDetailsViewModel {
     let character: Character
     var episodesUrl: [String] = []
-    var episodes: [EpisodeDetail] = []
+    var episodes: [EpisodeDetail] = [] //Main
     var dataSourceUpdated: (() -> Void)?
-
+    private let pageSize: Int = 20
     init(character: Character) {
         self.character = character
         self.episodesUrl = character.episode
@@ -23,10 +23,10 @@ class CharacterDetailsViewModel {
               episodesUrl.count > episodes.count else {
             return
         }
-        let endIndex = min((episodes.count + 20), episodes.count + (episodesUrl.count - episodes.count))
+        // min(20, 52)
+        let endIndex = min((episodes.count + pageSize), episodes.count + (episodesUrl.count - episodes.count))
         let urlsToLoad = Array(episodesUrl[episodes.count..<endIndex])
         loadCharacters(urls: urlsToLoad)
-
     }
 
     func loadCharacters(urls: [String]) {

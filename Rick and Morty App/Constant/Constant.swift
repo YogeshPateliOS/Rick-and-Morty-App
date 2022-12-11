@@ -17,7 +17,7 @@ enum Constants {
     enum API {
         static let baseURL = "https://rickandmortyapi.com/api/"
         static let characterURL = "\(baseURL)character"
-        static let filterCharacterURL = "\(baseURL)character/?name="
+        static let filterCharacterURL = "\(characterURL)/?name="
         static let errorTitle = "Connectivity Issue"
         static let errorMessage = "We are encountering a problem processing the request. Please check your connectivity."
         static let loading = "Loading..."
