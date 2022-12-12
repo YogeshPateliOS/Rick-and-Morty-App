@@ -68,6 +68,7 @@ extension CharacterDetailViewController {
         thumbnailImageView.loadImageAsync(with: viewModel.character.image)
     }
 
+    // Configure Localisation
     private func localiseUI(){
         statusLabel.text = Constants.Localizable.status
         specieLabel.text = Constants.Localizable.specie

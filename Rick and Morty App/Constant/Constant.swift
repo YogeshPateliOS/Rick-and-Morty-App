@@ -5,24 +5,25 @@
 //  Created by Yogesh Patel on 08/12/22.
 //
 
-/// Enum and Struct Value type so space bav na roke
-/// https://medium.com/swift-india/defining-global-constants-in-swift-a80d9e5cbd42
-
+// Global Constants
 enum Constants {
 
     static let alive = "Alive"
     static let languageCodeKey = "LanguageCode"
 
+    // API URL
     enum API {
         static let baseURL = "https://rickandmortyapi.com/api/"
         static let characterURL = "\(baseURL)character"
         static let filterCharacterURL = "\(characterURL)/?name="
     }
 
+    // Storyboard or Cell Identifier
     enum Identifier {
         static let cell = "cell"
     }
 
+    // Localisation Key
     enum Localizable{
         static var search: String { "SearchKey".localizableString() }
         static var episodes: String { "EpisodesKey".localizableString() }
@@ -41,6 +42,7 @@ enum Constants {
     
 }
 
+// Handle Language Cases
 enum LanguageCode: String, CaseIterable{
     case english = "en"
     case Spanish = "es"

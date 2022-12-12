@@ -41,6 +41,7 @@ final class CharacterDetailsViewModel {
         }
     }
 
+    // Fetch Episodes related to character
     private func fetchEpisodeDetailResponse(_ url: String) async -> Result<EpisodeDetail, DataError> {
         return await NetworkHandler.shared.get(url: url)
     }

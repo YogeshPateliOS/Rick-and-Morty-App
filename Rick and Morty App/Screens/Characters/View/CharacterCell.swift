@@ -19,7 +19,7 @@ class CharacterCell: UICollectionViewCell {
         didSet {
             thumbnailImage.loadImageAsync(with: character?.image)
             nameLabel.text = character?.name
-            episodeCountLabel.text = "Episodes: \(character?.episode.count ?? 0)"
+            episodeCountLabel.text = "\(Constants.Localizable.episodes.capitalized): \(character?.episode.count ?? 0)"
         }
     }
 

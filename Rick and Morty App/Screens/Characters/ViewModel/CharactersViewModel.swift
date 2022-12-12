@@ -49,6 +49,7 @@ final class CharactersViewModel {
         }
     }
 
+    // Fetch Characters with the help of Handler
     private func fetchCharacterResponse(_ url: String) async -> Result<CharacterResponseModel, DataError> {
         return await NetworkHandler.shared.get(url: url)
     }

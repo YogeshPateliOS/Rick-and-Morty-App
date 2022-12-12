@@ -65,6 +65,7 @@ extension CharactersListViewController {
         viewModel.fetchCharacters()
     }
 
+    // Configure Localisation
     private func localiseUI(){
         self.title = Constants.Localizable.characters
         searchController.searchBar.placeholder = Constants.Localizable.search
