@@ -16,6 +16,7 @@ Characters list           |  Character detail    |  Episode detail
 - [x] Dispatch Group - Load More - At a time Fetching 20 episodes then load more
 - [x] Singleton Design Pattern
 - [x] Light and Dark Mode
+- [x] Localisation Supported (English, Spanish and French)
 - [x] Asynchronous image downloading and caching. (URLSession and NSCache)
 - [x] Prefetching images and showing them from the cache to boost your app.
 - [x] Extensions for `UIImageView` to directly set an image from a URL.
