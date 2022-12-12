@@ -494,6 +494,7 @@
 				DEVELOPMENT_TEAM = CF4QM4CNHN;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Rick and Morty App/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Rick and Morty";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -525,6 +526,7 @@
 				DEVELOPMENT_TEAM = CF4QM4CNHN;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Rick and Morty App/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Rick and Morty";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

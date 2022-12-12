@@ -79,4 +79,11 @@ final class CharacterDetailsViewModel {
         }
     }
 
+    func a()
+    {
+        Task{ @MainActor in
+
+        }
+    }
+
 }
