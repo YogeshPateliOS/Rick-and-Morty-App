@@ -44,4 +44,5 @@ enum Constants {
 enum LanguageCode: String, CaseIterable{
     case english = "en"
     case Spanish = "es"
+    case French = "fr"
 }
