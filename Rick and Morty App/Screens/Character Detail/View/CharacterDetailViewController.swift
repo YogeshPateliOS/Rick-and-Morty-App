@@ -16,10 +16,16 @@ class CharacterDetailViewController: UITableViewController {
     @IBOutlet weak var statusImageView: UIImageView!
     @IBOutlet weak var thumbnailImageView: UIImageView!
     @IBOutlet weak var statusValueLabel: UILabel!
+    @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var specieLabel: UILabel!
+    @IBOutlet weak var genderLabel: UILabel!
+    @IBOutlet weak var locationLabel: UILabel!
+    @IBOutlet weak var loadMoreButton: UIButton!
 
     // MARK: - Variables
     var character: Character!
     private lazy var viewModel = CharacterDetailsViewModel(character: character)
+    private var sectionTitles: [String] = []
 
     // MARK: - View Lifecycle
     override func viewDidLoad() {
@@ -43,6 +49,7 @@ extension CharacterDetailViewController {
         }
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.Identifier.cell)
         detailConfiguration()
+        localiseUI()
         viewModel.loadMoreEpisodes()
         viewModel.dataSourceUpdated = { [weak self] in
             self?.tableView.reloadData()
@@ -61,6 +68,17 @@ extension CharacterDetailViewController {
         thumbnailImageView.loadImageAsync(with: viewModel.character.image)
     }
 
+    private func localiseUI(){
+        statusLabel.text = Constants.Localizable.status
+        specieLabel.text = Constants.Localizable.specie
+        genderLabel.text = Constants.Localizable.gender
+        locationLabel.text = Constants.Localizable.location
+        loadMoreButton.setTitle(Constants.Localizable.loadMore, for: .normal)
+        sectionTitles = [
+            Constants.Localizable.appearance,
+            Constants.Localizable.info
+        ]
+    }
 }
 
 // MARK: - UITableViewDataSource & UITableViewDelegate Methods
@@ -97,7 +115,10 @@ extension CharacterDetailViewController {
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 2 {
-            return "\(Constants.episodes) (\(viewModel.episodesUrl.count))"
+            return "\(Constants.Localizable.episodes) (\(viewModel.episodesUrl.count))"
+        }
+        if section == 0 || section == 1{
+            return sectionTitles[section]
         }
         return super.tableView(tableView, titleForHeaderInSection: section)
     }

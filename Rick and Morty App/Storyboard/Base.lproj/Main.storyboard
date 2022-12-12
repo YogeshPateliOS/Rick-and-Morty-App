@@ -251,7 +251,7 @@
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="9gj-Ur-VYn">
                                                             <rect key="frame" x="38" y="0.0" width="283" height="20.666666666666668"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gpd-jI-fmx">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="gpd-jI-fmx">
                                                                     <rect key="frame" x="0.0" y="0.0" width="141.66666666666666" height="20.666666666666668"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
@@ -325,10 +325,15 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="genderLabel" destination="vN3-s4-k7s" id="hua-Hh-zau"/>
                         <outlet property="genderValueLabel" destination="7bM-ta-EYS" id="Dq3-Zv-3uQ"/>
+                        <outlet property="loadMoreButton" destination="ve1-UQ-1iU" id="zQo-Lq-dv7"/>
+                        <outlet property="locationLabel" destination="gpd-jI-fmx" id="Qxb-Wb-6zP"/>
                         <outlet property="locationValueLabel" destination="dTk-6O-w91" id="Xrk-Nb-gT4"/>
+                        <outlet property="specieLabel" destination="D7u-v7-EdY" id="HYd-Qq-hqf"/>
                         <outlet property="specieValueLabel" destination="vYT-bp-2rD" id="Q1I-Tk-i5J"/>
                         <outlet property="statusImageView" destination="3xi-04-0Z2" id="BcV-rX-H6t"/>
+                        <outlet property="statusLabel" destination="kqa-gC-Pxf" id="lgk-ex-fQi"/>
                         <outlet property="statusValueLabel" destination="s39-4d-OiO" id="phA-2J-oBV"/>
                         <outlet property="thumbnailImageView" destination="air-MT-FVq" id="zcj-pd-kUT"/>
                     </connections>

@@ -10,25 +10,38 @@
 
 enum Constants {
 
-    static let search = "Search"
     static let alive = "Alive"
-    static let episodes = "EPISODES"
+    static let languageCodeKey = "LanguageCode"
 
     enum API {
         static let baseURL = "https://rickandmortyapi.com/api/"
         static let characterURL = "\(baseURL)character"
         static let filterCharacterURL = "\(characterURL)/?name="
-        static let errorTitle = "Connectivity Issue"
-        static let errorMessage = "We are encountering a problem processing the request. Please check your connectivity."
-        static let loading = "Loading..."
-    }
-
-    enum NavTitle {
-        static let characters = "Characters"
     }
 
     enum Identifier {
         static let cell = "cell"
     }
 
+    enum Localizable{
+        static var search: String { "SearchKey".localizableString() }
+        static var episodes: String { "EpisodesKey".localizableString() }
+        static var loading: String { "LoadingKey".localizableString() }
+        static var connectivity: String { "ConnectivityKey".localizableString() }
+        static var characters: String { "CharactersKey".localizableString() }
+        static var loadMore: String { "LoadMoreKey".localizableString() }
+        static var status: String { "StatusKey".localizableString() }
+        static var specie: String { "SpecieKey".localizableString() }
+        static var appearance: String { "AppearanceKey".localizableString() }
+        static var info: String { "InfoKey".localizableString() }
+        static var gender: String { "GenderKey".localizableString() }
+        static var location: String { "LocationKey".localizableString() }
+        static var nameNotAvailable: String{ "NameNotAvailableKey".localizableString() }
+    }
+    
+}
+
+enum LanguageCode: String, CaseIterable{
+    case english = "en"
+    case Spanish = "es"
 }

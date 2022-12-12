@@ -44,6 +44,7 @@ class CharactersListViewController: UIViewController {
         super.viewDidLoad()
         characterCollectionView.collectionViewLayout = createLayout
         configuration()
+        localiseUI()
     }
 
 }
@@ -53,7 +54,6 @@ extension CharactersListViewController {
 
     // UI Configuration
     private func configuration() {
-        self.title = Constants.NavTitle.characters
         characterCollectionView.register(
             UINib(nibName: CharacterCell.identifier,
                   bundle: nil),
@@ -65,9 +65,13 @@ extension CharactersListViewController {
         viewModel.fetchCharacters()
     }
 
+    private func localiseUI(){
+        self.title = Constants.Localizable.characters
+        searchController.searchBar.placeholder = Constants.Localizable.search
+    }
+
     // Search Configuration
     private func searchConfiguration() {
-        searchController.searchBar.placeholder = Constants.search
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.hidesSearchBarWhenScrolling = false
@@ -83,7 +87,7 @@ extension CharactersListViewController {
             }
             switch event {
             case .loading:
-                self.loadingButton.configureButton(title: Constants.API.loading)
+                self.loadingButton.configureButton(title: Constants.Localizable.loading)
             case .stopLoading:
                 self.loadingButton.isHidden = true
             case .dataLoaded:
@@ -101,7 +105,7 @@ extension CharactersListViewController {
         let name = self.searchController.searchBar.text ?? ""
         guard name.isEmpty else {
             self.loadingButton.configureButton(
-                title: "\(name) name not available.",
+                title: "\(name) \(Constants.Localizable.nameNotAvailable)",
                 isShowIndicator: false
             )
             return
@@ -112,7 +116,7 @@ extension CharactersListViewController {
             self.viewModel.fetchCharacters()
         }
         self.openAlert(
-            title: Constants.API.errorTitle,
+            title: Constants.Localizable.connectivity,
             message: message,
             actions: [.cancelAction, tryAgain]
         )

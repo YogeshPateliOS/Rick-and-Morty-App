@@ -26,6 +26,9 @@
 		90F5FC3F2944220C00BB5D8D /* UIButton + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F5FC3E2944220C00BB5D8D /* UIButton + Extension.swift */; };
 		90F5FC4229453F8100BB5D8D /* CharacterDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F5FC4129453F8100BB5D8D /* CharacterDetailsViewModel.swift */; };
 		90FB8DD429465D81004A6FE2 /* UITableViewCell + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FB8DD329465D81004A6FE2 /* UITableViewCell + Extension.swift */; };
+		90FB8DE1294698AA004A6FE2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 90FB8DE3294698AA004A6FE2 /* Localizable.strings */; };
+		90FB8DE629469C95004A6FE2 /* String + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FB8DE529469C95004A6FE2 /* String + Extension.swift */; };
+		90FB8DE82946A8B5004A6FE2 /* UserDefaults + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FB8DE72946A8B5004A6FE2 /* UserDefaults + Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +53,10 @@
 		90F5FC3E2944220C00BB5D8D /* UIButton + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton + Extension.swift"; sourceTree = "<group>"; };
 		90F5FC4129453F8100BB5D8D /* CharacterDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailsViewModel.swift; sourceTree = "<group>"; };
 		90FB8DD329465D81004A6FE2 /* UITableViewCell + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell + Extension.swift"; sourceTree = "<group>"; };
+		90FB8DE2294698AA004A6FE2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		90FB8DE4294698B7004A6FE2 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		90FB8DE529469C95004A6FE2 /* String + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Extension.swift"; sourceTree = "<group>"; };
+		90FB8DE72946A8B5004A6FE2 /* UserDefaults + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults + Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +73,7 @@
 		90A4753029428C38002DF6AD = {
 			isa = PBXGroup;
 			children = (
+				90FB8DE3294698AA004A6FE2 /* Localizable.strings */,
 				90A4753B29428C38002DF6AD /* Rick and Morty App */,
 				90A4753A29428C38002DF6AD /* Products */,
 			);
@@ -181,6 +189,8 @@
 				90F5FC342943DE6A00BB5D8D /* UIViewController + Extension.swift */,
 				90F5FC3E2944220C00BB5D8D /* UIButton + Extension.swift */,
 				90FB8DD329465D81004A6FE2 /* UITableViewCell + Extension.swift */,
+				90FB8DE529469C95004A6FE2 /* String + Extension.swift */,
+				90FB8DE72946A8B5004A6FE2 /* UserDefaults + Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -270,6 +280,7 @@
 			knownRegions = (
 				en,
 				Base,
+				es,
 			);
 			mainGroup = 90A4753029428C38002DF6AD;
 			packageReferences = (
@@ -288,6 +299,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90FB8DE1294698AA004A6FE2 /* Localizable.strings in Resources */,
 				90A4754929428C3A002DF6AD /* LaunchScreen.storyboard in Resources */,
 				90A4754629428C3A002DF6AD /* Assets.xcassets in Resources */,
 				90A4754429428C38002DF6AD /* Main.storyboard in Resources */,
@@ -304,6 +316,8 @@
 			files = (
 				90A475712942CF61002DF6AD /* CharacterDetailViewController.swift in Sources */,
 				90F5FC3F2944220C00BB5D8D /* UIButton + Extension.swift in Sources */,
+				90FB8DE82946A8B5004A6FE2 /* UserDefaults + Extension.swift in Sources */,
+				90FB8DE629469C95004A6FE2 /* String + Extension.swift in Sources */,
 				90A4756029428E7F002DF6AD /* CharacterCell.swift in Sources */,
 				90A4756629429F7A002DF6AD /* CharactersViewModel.swift in Sources */,
 				90A4753D29428C38002DF6AD /* AppDelegate.swift in Sources */,
@@ -339,6 +353,15 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
+		90FB8DE3294698AA004A6FE2 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				90FB8DE2294698AA004A6FE2 /* en */,
+				90FB8DE4294698B7004A6FE2 /* es */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -346,6 +369,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -406,6 +430,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";

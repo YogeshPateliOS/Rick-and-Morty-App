@@ -1,0 +1,21 @@
+/* 
+  Localizable.strings
+  Rick and Morty App
+
+  Created by Yogesh Patel on 11/12/22.
+  
+*/
+
+"SearchKey" = "Search";
+"EpisodesKey" = "EPISODES";
+"LoadingKey" = "Loading...";
+"ConnectivityKey" = "Connectivity Issue";
+"CharactersKey" = "Characters";
+"LoadMoreKey" = "Load More";
+"StatusKey" = "Status";
+"SpecieKey" = "Specie";
+"AppearanceKey" = "APPEARANCE";
+"InfoKey" = "INFO";
+"GenderKey" = "Gender";
+"LocationKey" = "Location";
+"NameNotAvailableKey" = "name not available.";

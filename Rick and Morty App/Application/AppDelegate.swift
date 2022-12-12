@@ -11,7 +11,21 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+
+        // Language Configuration
+        let languagePrefix = Locale.preferredLanguages
+        if languagePrefix.count > 0,
+           let languageCode = languagePrefix.first
+        {
+            if LanguageCode.allCases.map({ $0.rawValue }).contains(languageCode){
+                UserDefaults.standard.setLanguageCode(code: languageCode)
+            }else{
+                UserDefaults.standard.setLanguageCode(code: LanguageCode.english.rawValue)
+            }
+        }else{
+            UserDefaults.standard.setLanguageCode(code: LanguageCode.english.rawValue)
+        }
+
         return true
     }
 
