@@ -17,7 +17,7 @@ final class CharactersViewModel {
     typealias CharacterResult = (CharacterResponseModel, DataError) -> Void
     private lazy var previousRun = Date.now // Debounce Compare data
     private let minInterval = 0.05 // Delay
-
+    private let handler = NetworkHandler()
     /// Fetch characters with Pagination
     func checkForNextPage(index: Int) {
         guard !isFetchingRecords && index == characters.count - 1 else {
@@ -33,25 +33,20 @@ final class CharactersViewModel {
         }
         self.eventHandler?(.loading) // Loading State
         self.isFetchingRecords = true
-        
+
         Task { @MainActor in
-            let result = await self.fetchCharacterResponse(nextPageUrl)
-            self.isFetchingRecords = false
-            self.eventHandler?(.stopLoading)
-            switch result {
-            case .success(let model):
-                self.characters.append(contentsOf: model.results)
-                self.nextPageUrl = model.info.next
+            do {
+                let characterResponse: CharacterResponseModel = try await handler.request(url: nextPageUrl)
+                self.isFetchingRecords = false
+                self.eventHandler?(.stopLoading)
+                self.characters.append(contentsOf: characterResponse.results)
+                self.nextPageUrl = characterResponse.info.next
                 self.eventHandler?(.dataLoaded)
-            case .failure(let failure):
-                self.eventHandler?(.error(failure.localizedDescription))
+            }catch {
+                self.eventHandler?(.error(error.localizedDescription))
             }
         }
-    }
 
-    // Fetch Characters with the help of Handler
-    private func fetchCharacterResponse(_ url: String) async -> Result<CharacterResponseModel, DataError> {
-        return await NetworkHandler.shared.get(url: url)
     }
 
     // Filter characters by name

@@ -21,7 +21,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                     </imageView>
                     <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wFs-o0-SPt">
-                        <rect key="frame" x="0.0" y="156" width="200" height="44"/>
+                        <rect key="frame" x="0.0" y="155.66666666666666" width="200" height="44.333333333333343"/>
                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="VMB-eW-qnI">
                             <rect key="frame" x="0.0" y="0.0" width="200" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

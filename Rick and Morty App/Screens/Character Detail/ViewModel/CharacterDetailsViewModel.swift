@@ -14,6 +14,7 @@ final class CharacterDetailsViewModel {
     var episodes: [EpisodeDetail] = [] // Array of episode details
     var dataSourceUpdated: (() -> Void)? // Data Binding Use Closure
     private let pageSize: Int = 20 // Episode Size(Limit)
+    private let handler = NetworkHandler()
 
     // DI - Dependency Injection
     init(character: Character) {
@@ -26,26 +27,18 @@ final class CharacterDetailsViewModel {
     /// - Parameters:
     ///   - url: pass episode URL
     ///   - completion: Passing Episode Details
-    func getEpisodeDetail(
-        url: String,
-        completion: @escaping (_ episode: EpisodeDetail) -> Void
-    ) {
-        Task { @MainActor in
-            let result = await self.fetchEpisodeDetailResponse(url)
-            switch result {
-            case .success(let episode):
-                completion(episode)
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
 
-    // Fetch Episodes related to character
-    private func fetchEpisodeDetailResponse(_ url: String) async -> Result<EpisodeDetail, DataError> {
-        return await NetworkHandler.shared.get(url: url)
-    }
-
+   @MainActor func getEpisodeDetail(
+        url: String
+   ) async -> EpisodeDetail? {
+       do {
+           let episodeDetail: EpisodeDetail = try await handler.request(url: url)
+           return episodeDetail
+       }catch {
+           print(error)
+           return nil
+       }
+   }
 
     // Load More Episode - Loading 20 Episode at a time
     func loadMoreEpisodes() {
@@ -53,37 +46,25 @@ final class CharacterDetailsViewModel {
               episodesUrl.count > episodes.count else {
             return
         }
-
+        // min(0 + 20, 0 + (51 - 0) -> 20 records
         let endIndex = min((episodes.count + pageSize), episodes.count + (episodesUrl.count - episodes.count))
         let urlsToLoad = Array(episodesUrl[episodes.count..<endIndex])
-        loadCharacters(urls: urlsToLoad)
+        Task {
+            await loadCharacters(urls: urlsToLoad)
+        }
     }
 
     // Loading episode details with Dispatch Group - Memory Handling and once all episode details are loaded then only will update the UI.
-    func loadCharacters(urls: [String]) {
+    @MainActor func loadCharacters(urls: [String]) async {
         var episodeArray: [EpisodeDetail] = []
-        let group = DispatchGroup() // Threading
+
         for url in urls {
-            group.enter()
-            self.getEpisodeDetail(
-                url: url) { episode in
-                    episodeArray.append(episode)
-                    group.leave()
-                }
+            guard let episode = await self.getEpisodeDetail(url: url) else { return }
+            episodeArray.append(episode)
         }
 
-        // Notify once episode details are loaded.
-        group.notify(queue: .main) {
-            self.episodes += episodeArray
-            self.dataSourceUpdated?()
-        }
-    }
-
-    func a()
-    {
-        Task{ @MainActor in
-
-        }
+        self.episodes += episodeArray
+        self.dataSourceUpdated?()
     }
 
 }

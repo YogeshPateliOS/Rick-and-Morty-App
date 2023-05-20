@@ -7,10 +7,16 @@
 
 import UIKit
 
+// https://stackoverflow.com/a/45183939/8201581
+/*
+ we have to keep track of (a) the current URLSessionTask associated with the last request; and (b) the current URL being requested. You can then (a) when starting a new request, make sure to cancel any prior request; and (b) when updating the image view, make sure the URL associated with the image matches what the current URL is.
+ */
+
+
 extension UIImageView {
     private static var taskKey = 0
     private static var urlKey = 0
-
+    // objc_getAssociatedObject. Returns the value associated with a given object for a given key.
     private var currentTask: URLSessionTask? {
         get { objc_getAssociatedObject(self, &UIImageView.taskKey) as? URLSessionTask }
         set { objc_setAssociatedObject(self, &UIImageView.taskKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
