@@ -38,3 +38,11 @@ Launch Screen    |     Characters list           |  Character detail    |  Episo
 - We have a Singleton Class that we use to manage API Calling. The CharacterViewModel manages all loader events and logic, including pagination and character name filtering via the debounce method. 
 - I use Closure to communicate with View and ViewModel (Data Binding).
 - Character Detail ViewModel: I created dependency injection to show character information, and dispatch groups to show lists of episodes.
+
+# Resource
+- App Icon Image Sources:
+  1. https://wallpapers.com/wallpapers/red-rick-and-morty-silhouette-minimalism-u0vib2avp08tt1dk.html
+  2. https://www.facebook.com/photo/?fbid=576263720955692&set=a.576263680955696
+- Launch Screen Image Sources:
+  1. https://www.imdb.com/title/tt2861424/mediaviewer/rm209331968/?ref_=tt_ov_i
+  2. https://m.media-amazon.com/images/M/MV5BZjRjOTFkOTktZWUzMi00YzMyLThkMmYtMjEwNmQyNzliYTNmXkEyXkFqcGdeQXVyNzQ1ODk3MTQ@._V1_FMjpg_UX1000_.jpg
